@@ -1,3 +1,5 @@
 .profile__names {
-    
+    margin: 0 0 12px 30px;
+    display: flex;
+    align-items: baseline;
 }

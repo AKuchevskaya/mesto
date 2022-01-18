@@ -1,3 +1,10 @@
 .profile__button-redaction {
-    
+    background-image: url(../../../images/button_redaction.png);
+    border: 1px solid #FFFFFF;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+    background-color: black;
 }
