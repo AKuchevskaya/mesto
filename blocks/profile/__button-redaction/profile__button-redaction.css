@@ -8,3 +8,10 @@
     height: 24px;
     background-color: black;
 }
+
+@media screen and (max-width: 650px) {
+    .profile__button-redaction {
+        width: 18px;
+        height: 18px;
+    }
+}

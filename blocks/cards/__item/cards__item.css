@@ -1,5 +1,6 @@
 .cards__item {
     background-color: #FFFFFF;
+    height: 361px;
     border-radius: 10px;
     overflow: hidden;
 }

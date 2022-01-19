@@ -3,3 +3,9 @@
     display: flex;
     align-items: baseline;
 }
+
+@media screen and (max-width: 650px) {
+    .profile__names {
+        margin: 0 0 4px;
+    }
+}
