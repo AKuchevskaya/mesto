@@ -1,0 +1,9 @@
+.cards__button {
+    background-image: url(../../../images/button_like.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #FFFFFF;
+    width: 25px;
+    height: 19px;
+    border: none;
+}
