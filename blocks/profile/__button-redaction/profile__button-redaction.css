@@ -9,6 +9,10 @@
     background-color: black;
 }
 
+.profile__button-redaction:hover {
+    opacity: 0.6;
+}
+
 @media screen and (max-width: 650px) {
     .profile__button-redaction {
         width: 18px;

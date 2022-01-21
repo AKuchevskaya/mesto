@@ -7,3 +7,6 @@
     height: 19px;
     border: none;
 }
+.cards__button:hover {
+    opacity: 0.5;
+}
