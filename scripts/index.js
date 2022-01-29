@@ -47,9 +47,10 @@ function  formSubmitHandler(evt) {
     //вставляем новые значения из попапа в поля блока profile
     profileName.textContent = nameInput.value;
     profileVocation.textContent = vocationInput.value;
+
+    // закрываем попап после нажатия кнопки "сохранить"
+    popupSaveButton.addEventListener('click', closePopup);
 }
 
 //прикрепляем обработчик к форме, который будет следить за событием submit - отправка
 formElement.addEventListener('submit', formSubmitHandler);
-// закрываем попап после нажатия кнопки "сохранить"
-popupSaveButton.addEventListener('click', closePopup);
