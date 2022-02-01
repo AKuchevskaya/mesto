@@ -1,7 +1,6 @@
 .profile__button-redaction {
     background-image: url(../../../images/button_redaction.svg);
     border: 1px solid #FFFFFF;
-    object-fit: cover;
     background-repeat: no-repeat;
     background-position: center;
     width: 24px;

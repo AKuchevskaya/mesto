@@ -12,7 +12,6 @@ const vocationInput = document.querySelector('.popup__input_type_vocation');
 const profileName = document.querySelector ('.profile__name');
 const profileVocation = document.querySelector('.profile__vocation');
 
-
 //открываем попап по клику на кнопку редактирования, добавляя к классу модификатор
 function openPopup() {
     popup.classList.add('popup_opened')
@@ -28,17 +27,6 @@ function closePopup() {
 }
 popupCloseButton.addEventListener('click', closePopup);
 
-//закрываем попап по клику вне формы (когда можно и не нажимать на крестик)
-//работает в случае сброса стандартного поведения (defaultPrevented)
-popup.addEventListener('click', function(event) {
-    if(!event.defaultPrevented) {
-        closePopup ();
-    }
-})
-popupContainer.addEventListener('click', function(e) {
-    e.stopPropagation()
-})
-
 //описываем функцию-обработчик отправки формы, в которой:
 // открывается попап(пока она никуда не отправляется)
 function  formSubmitHandler(evt) {
@@ -49,7 +37,7 @@ function  formSubmitHandler(evt) {
     profileVocation.textContent = vocationInput.value;
 
     // закрываем попап после нажатия кнопки "сохранить"
-    popupSaveButton.addEventListener('click', closePopup);
+    closePopup();
 }
 
 //прикрепляем обработчик к форме, который будет следить за событием submit - отправка

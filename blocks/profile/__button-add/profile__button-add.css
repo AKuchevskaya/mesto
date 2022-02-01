@@ -2,13 +2,13 @@
     background-image: url(../../../images/button_add.svg);
     box-sizing: border-box;
     background-color: black;
-    border: 1px solid #FFFFFF;
-    border-radius: 2px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: 22px;
     width: 150px;
     height: 50px;
+    border: 1px solid #FFFFFF;
+    border-radius: 2px;
     margin-top: 71px;
     cursor: pointer;
     transition: .3s;
