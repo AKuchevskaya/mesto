@@ -85,31 +85,37 @@ const formAddElement = document.querySelector('.popup_form-add');
 const cardsContainer = document.querySelector('.cards__container');
 const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
+//открытие карточек на переднем плане
+const popupReview = document.querySelector('.popup_card-review');
+const popupReviewCloseButton = document.querySelector('.popup_close-card');
+const popupFigure = document.querySelector('.popup__figure');
+const popupCard = popupFigure.querySelector('.popup_card');
+const popupFigcaption = popupFigure.querySelector('.popup_figcaption');
 
 const initalCards = [
     {
         name: 'Карачаевск',
-        link: './images/Karachaevsk.jpg'
+        link: './images/karachaevsk.jpg'
     },
     {
         name: 'Гора Эльбрус',
-        link: './images/Elbrus.jpg'
+        link: './images/elbrus.jpg'
     },
     {
         name: 'Домбай',
-        link: './images/Dombay.jpg'
+        link: './images/dombay.jpg'
     },
     {
         name: 'Романцевские горы',
-        link: './images/Romancevskie_gory.jpg'
+        link: './images/romancevskie_gory.jpg'
     },
     {
         name: 'Непал',
-        link: './images/Nepal.jpg'
+        link: './images/nepal.jpg'
     },
     {
         name: 'Гималаи',
-        link: './images/Himalayas.jpg'
+        link: './images/himalayas.jpg'
     },
 ];
 //кладем в переменную содержание (.content) тега template
@@ -130,8 +136,19 @@ function createItem(card) {
     newCard.querySelector('.cards__image').src = card.link;
     newCard.querySelector('.cards__image').alt = card.name;
     //вызвали функцию, которая проверяет на каждой карточке срабатывание какого-то события (удаление, лайка, открытия карточки)
-    addListeners(newCard);
-    
+    //addListeners(newCard);
+    newCard.querySelector('.cards__button-delete').addEventListener('click', function(event) {
+        event.target.closest('.cards__item').remove();
+    });
+    newCard.querySelector('.cards__button-like').addEventListener('click', function(event) {
+        event.target.classList.toggle('cards__button-like_active');
+    });
+    newCard.querySelector('.cards__image').addEventListener('click', function openPopupCardReview () {
+        openPopup(popupReview);
+        popupCard.src = card.link;
+        popupCard.alt = card.name;
+        popupFigcaption.textContent = card.name;
+    });
     return newCard;
 };
 
@@ -174,42 +191,28 @@ popupAdd.addEventListener('click', function(event) {
 formAddElement.addEventListener('submit', addCard);
 
 //функция, которая будет добавлять обработчики
-function addListeners(el) {
+//function addListeners(el, card) {
     //клик по кнопке удаления вызывает функцию удаления картинки
-    el.querySelector('.cards__button-delete').addEventListener('click', handleDelete);
+    //el.querySelector('.cards__button-delete').addEventListener('click', handleDelete);
     //клик по кнопке лайка вызывает функцию смены стилей иконки
-    el.querySelector('.cards__button-like').addEventListener('click', handleReaction);
+   // el.querySelector('.cards__button-like').addEventListener('click', function (event) {
+   //     event.classList.toggle('cards__button-like_active');
+   // });
     //клик по самой картинке вызывает функцию открытия попапа с этой картинкой на переднем плане
-    el.querySelector('.cards__image').addEventListener('click', handleOpenCard);
-}
+   // el.querySelector('.cards__image').addEventListener('click', () => handleOpenCard(card));
+//}
 //функция удаления картинки по нажатию на корзину
-function handleDelete(event) {
+//function handleDelete(event) {
     //методом closest находим ближайший элемент, на котором сработал клик и удаляем этот элемент
-    event.target.closest('.cards__item').remove();
-};
-//функция меняет стили кнопки лайка
-function handleReaction(event) {
-    event.target.closest('.cards__button-like').classList.toggle('cards__button-like_active');
-};
-
-//открытие карточек на переднем плане
-const popupReview = document.querySelector('.popup_card-review');
-const popupReviewCloseButton = document.querySelector('.popup_close-card');
-const popupCard = document.querySelector('.popup_card');
-const popupFigcaption = document.querySelector('.popup_figcaption');
-
-//функция открывает окно просмотра картинки
-//function openPopupCardReview () {
-//   openPopup(popupReview);
+    //event.target.closest('.cards__item').remove();
 //};
 
-//функция открытия картинки переднем плане 
-function handleOpenCard(event) {
-    openPopup(popupReview);
-    popupCard.src = event.target.link;
-    popupCard.alt = event.target.name;
-    popupFigcaption.textContent = event.target.name;
-};
+
+
+
+
+
+
 
 
 //функция закрытия окна просмотра картинки после нажатия на крестик

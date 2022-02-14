@@ -1,7 +1,7 @@
 .popup {
     position: fixed;
     background-color: rgba(0,0,0,.5);
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     top: 0;
@@ -11,4 +11,5 @@
     visibility: hidden;
     transition: all 0.4s ease 0s;
     opacity: 0;
+    z-index: -1;
 }
