@@ -95,27 +95,27 @@ const popupFigcaption = popupFigure.querySelector('.popup_figcaption');
 const initalCards = [
     {
         name: 'Карачаевск',
-        link: './images/Karachaevsk.jpg'
+        link: './images/karachaevsk.jpg'
     },
     {
         name: 'Гора Эльбрус',
-        link: './images/Elbrus.jpg'
+        link: './images/elbrus.jpg'
     },
     {
         name: 'Домбай',
-        link: './images/Dombay.jpg'
+        link: './images/dombay.jpg'
     },
     {
         name: 'Романцевские горы',
-        link: './images/Romancevskie_gory.jpg'
+        link: './images/romancevskie_gory.jpg'
     },
     {
         name: 'Непал',
-        link: './images/Nepal.jpg'
+        link: './images/nepal.jpg'
     },
     {
         name: 'Гималаи',
-        link: './images/Himalayas.jpg'
+        link: './images/himalayas.jpg'
     },
 ];
 //кладем в переменную содержание (.content) тега template
