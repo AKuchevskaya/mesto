@@ -7,7 +7,7 @@ const popupContainer = document.querySelector('.popup__container');
 
 //Редактирование ПРОФИЛЯ
 const profileRedactionPopupButton = document.querySelector('.profile__button-redaction');
-const popupRedaction = document.querySelector('.popup__profile-redaction');
+const popupRedaction = document.querySelector('.popup_profile-redaction');
 const popupRedactionCloseButton = document.querySelector('.popup__close-redaction');
 //находим форму в DOM, которую нужно будет отправлять
 const formRedactionElement = document.querySelector('.popup__form-redattion');
@@ -79,7 +79,7 @@ formRedactionElement.addEventListener('submit', formSubmitHandler);
 
 //Добавление КАРТОЧЕК
 const cardAddPopupButton = document.querySelector('.profile__button-add');
-const popupAdd = document.querySelector('.popup__profile-add');
+const popupAdd = document.querySelector('.popup_profile-add');
 const popupAddCloseButton = document.querySelector('.popup__close-add');
 const formAddElement = document.querySelector('.popup__form-add');
 const cardsContainer = document.querySelector('.cards__container');
@@ -112,7 +112,7 @@ const initalCards = [
     },
 ];
 //открытие карточек на переднем плане
-const popupReview = document.querySelector('.popup__card-review');
+const popupReview = document.querySelector('.popup_card-review');
 const popupReviewCloseButton = document.querySelector('.popup__close-card');
 const popupFigure = document.querySelector('.popup__figure');
 const popupCard = document.querySelector('.popup__card');
