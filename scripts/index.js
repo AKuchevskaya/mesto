@@ -85,13 +85,6 @@ const formAddElement = document.querySelector('.popup_form-add');
 const cardsContainer = document.querySelector('.cards__container');
 const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
-//открытие карточек на переднем плане
-const popupReview = document.querySelector('.popup_card-review');
-const popupReviewCloseButton = document.querySelector('.popup_close-card');
-const popupFigure = document.querySelector('.popup__figure');
-const popupCard = popupFigure.querySelector('.popup_card');
-const popupFigcaption = popupFigure.querySelector('.popup_figcaption');
-
 const initalCards = [
     {
         name: 'Карачаевск',
@@ -118,6 +111,14 @@ const initalCards = [
         link: './images/himalayas.jpg'
     },
 ];
+//открытие карточек на переднем плане
+const popupReview = document.querySelector('.popup_card-review');
+const popupReviewCloseButton = document.querySelector('.popup_close-card');
+const popupFigure = document.querySelector('.popup__figure');
+const popupCard = popupFigure.querySelector('.popup_card');
+const popupFigcaption = popupFigure.querySelector('.popup_figcaption');
+
+
 //кладем в переменную содержание (.content) тега template
 const template = document.querySelector('.template__item').content;
 
