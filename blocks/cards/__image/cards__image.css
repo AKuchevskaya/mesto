@@ -1,6 +1,6 @@
 .cards__image {
-    max-width: 282px;
-    min-height: 282px;
+    width: 282px;
+    height: 282px;
     object-fit: cover;
     overflow: hidden;
     background-color: #C4C4C4;
