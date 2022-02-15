@@ -127,9 +127,10 @@ function renderCards(card) {
 };
 initalCards.forEach(renderCards);
 
+
 //функция клонирует внутренний код тега template с содержимым 
 //и создает новые карточки подставляя значения из массива initalCards
-function createItem(card) {
+function createItem(card,data) {
     const newCard = template.cloneNode(true);
     //
     newCard.querySelector('.cards__title').textContent = card.name;
@@ -143,14 +144,17 @@ function createItem(card) {
     newCard.querySelector('.cards__button-like').addEventListener('click', function(event) {
         event.target.classList.toggle('cards__button-like_active');
     });
-    newCard.querySelector('.cards__image').addEventListener('click', function openPopupCardReview () {
-        openPopup(popupReview);
-        popupCard.src = card.link;
-        popupCard.alt = card.name;
-        popupFigcaption.textContent = card.name;
+    newCard.querySelector('.cards__image').addEventListener('click', function () {
+        openPopupCardReview(data)
     });
     return newCard;
 };
+function openPopupCardReview(data){
+    openPopup(popupReview);
+    popupCard.src = data.link;
+    popupCard.alt = data.name;
+    popupFigcaption.textContent = data.name;
+}
 
 //функция открытия окна добавления карточек после клика на плюс
 function openPopupCardAdd() {
