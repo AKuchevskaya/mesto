@@ -28,6 +28,14 @@ window.addEventListener('click', (event) => {
     };   
 });
 
+//функция закрытия попапа нажатием на Esc
+document.addEventListener('keydown', (evt) => {
+    const popupOpened = document.querySelector('.popup_opened')
+    if (evt.key === 'Escape'){
+    closePopup(popupOpened);
+  };
+});
+
 //функция открывает попап редактирования профиля после клика на кнопку редактирования,
 //а также подставляет уже известные данные полей формы
 function openPopupRedaction() {
