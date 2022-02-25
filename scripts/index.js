@@ -11,30 +11,32 @@ const vocationInput = document.querySelector('.popup__input_type_vocation');
 const profileName = document.querySelector ('.profile__name');
 const profileVocation = document.querySelector('.profile__vocation');
 
+
+//функция закрытия попапа нажатием на Esc
+function closeByEscape(evt) {
+    if (evt.key === 'Escape'){
+        const popupOpened = document.querySelector('.popup_opened')
+        closePopup(popupOpened);  
+    };
+};
 //открываем попап, добавляя к классу модификатор
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closeByEscape);
 };
 //закрываем попап, убирая модификатор
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeByEscape);
 };
 
 //функция закрытия попапа по клику на оверлэй
-window.addEventListener('click', (event) => {
-    const popupOpened = document.querySelector('.popup_opened')
-    if (event.target.classList.contains('popup_opened')){
-        closePopup(popupOpened);
-    };   
-});
-
-//функция закрытия попапа нажатием на Esc
-document.addEventListener('keydown', (evt) => {
-    const popupOpened = document.querySelector('.popup_opened')
-    if (evt.key === 'Escape'){
-    closePopup(popupOpened);
-  };
-});
+function closeByOverlay(evt) {
+    if (evt.target.classList.contains('popup_opened')){
+        closePopup(evt.target);
+    }; 
+};
+document.addEventListener('mousedown', closeByOverlay);
 
 //функция открывает попап редактирования профиля после клика на кнопку редактирования,
 //а также подставляет уже известные данные полей формы
@@ -49,7 +51,7 @@ profileRedactionPopupButton.addEventListener('click', openPopupRedaction);
 
 //функция закрытия окна редактирования после нажатия на крестик в форме редактирования профиля
 function closePopupRedaction() {
-    closePopup(popupRedaction);
+   closePopup(popupRedaction);
 };
 
 //клик по кнопке закрытия вызывает функцию закрытия окна редактирования
@@ -101,10 +103,11 @@ initalCards.forEach(renderCard);
 //и создает новые карточки подставляя значения из массива initalCards
 function createItem(card) {
     const newCard = template.cloneNode(true);
+    const newImage = newCard.querySelector('.cards__image');
     //
     newCard.querySelector('.cards__title').textContent = card.name;
-    newCard.querySelector('.cards__image').src = card.link;
-    newCard.querySelector('.cards__image').alt = card.name;
+    newImage.src = card.link;
+    newImage.alt = card.name;
     //вызвали функцию, которая проверяет на каждой карточке срабатывание какого-то события (удаление, лайка, открытия карточки)
     //addListeners(newCard);
     newCard.querySelector('.cards__button-delete').addEventListener('click', function(event) {
@@ -113,7 +116,7 @@ function createItem(card) {
     newCard.querySelector('.cards__button-like').addEventListener('click', function(event) {
         event.target.classList.toggle('cards__button-like_active');
     });
-    newCard.querySelector('.cards__image').addEventListener('click', function () {
+    newImage.addEventListener('click', function () {
         openPopupCardReview(card)
     });
     return newCard;
@@ -137,7 +140,6 @@ popupReviewCloseButton.addEventListener('click', closePopupCardReview);
 //функция открытия окна добавления карточек после клика на плюс
 function openPopupCardAdd() {
     openPopup(popupAdd);
-    formAddElement.reset();
 };
 
 //клик по кнопке добавления карточек запускает функцию открытия окна добавления карточек
@@ -157,6 +159,7 @@ function addCard(e) {
     renderCard({name: titleInput.value, link: linkInput.value});
     // закрываем попап после нажатия кнопке "Добавить"
     closePopupCardAdd();
+    formAddElement.reset();
 };
 
 //прикрепляем обработчик к форме добавления новой карточки
