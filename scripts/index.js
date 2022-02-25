@@ -11,14 +11,8 @@ const vocationInput = document.querySelector('.popup__input_type_vocation');
 const profileName = document.querySelector ('.profile__name');
 const profileVocation = document.querySelector('.profile__vocation');
 
+  
 
-//функция закрытия попапа нажатием на Esc
-function closeByEscape(evt) {
-    if (evt.key === 'Escape'){
-        const popupOpened = document.querySelector('.popup_opened')
-        closePopup(popupOpened);  
-    };
-};
 //открываем попап, добавляя к классу модификатор
 function openPopup(popup) {
     popup.classList.add('popup_opened');
@@ -30,13 +24,28 @@ function closePopup(popup) {
     document.removeEventListener('keydown', closeByEscape);
 };
 
-//функция закрытия попапа по клику на оверлэй
-function closeByOverlay(evt) {
-    if (evt.target.classList.contains('popup_opened')){
-        closePopup(evt.target);
-    }; 
+//находим открытый попап
+const popups = document.querySelectorAll('.popup')
+
+//добавляем к открытым попапам слушатели на нажатие мышкой по оверлэю и на крестик
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__close')) {
+            closePopup(popup)
+        }
+    })
+})
+
+//функция закрытия попапа нажатием на Esc
+function closeByEscape(evt) {
+    if (evt.key === 'Escape'){
+        const popupOpened = document.querySelector('.popup_opened')
+        closePopup(popupOpened);  
+    };
 };
-document.addEventListener('mousedown', closeByOverlay);
 
 //функция открывает попап редактирования профиля после клика на кнопку редактирования,
 //а также подставляет уже известные данные полей формы
@@ -53,9 +62,6 @@ profileRedactionPopupButton.addEventListener('click', openPopupRedaction);
 function closePopupRedaction() {
    closePopup(popupRedaction);
 };
-
-//клик по кнопке закрытия вызывает функцию закрытия окна редактирования
-popupRedactionCloseButton.addEventListener('click', closePopupRedaction);
 
 //описываем функцию-обработчик отправки формы, в которой:
 // изменяются данные полей формы редактирования и они сохраняются на странице профиля;
@@ -108,8 +114,8 @@ function createItem(card) {
     newCard.querySelector('.cards__title').textContent = card.name;
     newImage.src = card.link;
     newImage.alt = card.name;
-    //вызвали функцию, которая проверяет на каждой карточке срабатывание какого-то события (удаление, лайка, открытия карточки)
-    //addListeners(newCard);
+    //добавляем слушатели на каждой карточке, которые проверяют срабатывание  
+    //какого-то события (удаление, лайка, открытия карточки)
     newCard.querySelector('.cards__button-delete').addEventListener('click', function(event) {
         event.target.closest('.cards__item').remove();
     });
@@ -135,8 +141,6 @@ function closePopupCardReview() {
     closePopup(popupReview);
 };
 
-//клик по кнопке закрытия вызывает функцию закрытия окна просмотра картинки
-popupReviewCloseButton.addEventListener('click', closePopupCardReview);
 //функция открытия окна добавления карточек после клика на плюс
 function openPopupCardAdd() {
     openPopup(popupAdd);
@@ -150,15 +154,12 @@ function closePopupCardAdd() {
     closePopup(popupAdd);
 };
 
-//клик по кнопке закрытия вызывает функцию закрытия окна добавления картинок
-popupAddCloseButton.addEventListener('click', closePopupCardAdd);
-
 //функция добавления карточки через попап добавления "+"
 function addCard(e) {
     e.preventDefault();
     renderCard({name: titleInput.value, link: linkInput.value});
     // закрываем попап после нажатия кнопке "Добавить"
-    closePopupCardAdd();
+    closePopupCardAdd(); 
     formAddElement.reset();
 };
 
