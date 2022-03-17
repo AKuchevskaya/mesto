@@ -1,9 +1,12 @@
+import { FormValidator } from './FormValidator.js'
+
 //Редактирование ПРОФИЛЯ
 const profileRedactionPopupButton = document.querySelector('.profile__button-redaction');
 const popupRedaction = document.querySelector('.popup_profile-redaction');
-const popupRedactionCloseButton = document.querySelector('.popup__close-redaction');
+//const popupRedactionCloseButton = document.querySelector('.popup__close-redaction');
 //находим форму в DOM, которую нужно будет отправлять
-const formRedactionElement = document.querySelector('.popup__form-redaction');
+const formRedactionElement = popupRedaction.querySelector('.popup__form-redaction');
+
 //выбираем поля формы, которые надо заполнитьв попапе
 const nameInput = document.querySelector('.popup__input_type_name');
 const vocationInput = document.querySelector('.popup__input_type_vocation');
@@ -11,7 +14,17 @@ const vocationInput = document.querySelector('.popup__input_type_vocation');
 const profileName = document.querySelector ('.profile__name');
 const profileVocation = document.querySelector('.profile__vocation');
 
-  
+const config = {
+    formSelector: '.popup__form',
+    inactiveButtonClass: 'popup__save_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    inputSelector: '.popup__input',
+    ButtonSelector: '.popup__save'
+}
+
+//валидация формы редактирования
+const redactionProfileValidator = new FormValidator(config, formRedactionElement);
+redactionProfileValidator.enableValidation()
 
 //открываем попап, добавляя к классу модификатор
 function openPopup(popup) {
@@ -56,7 +69,7 @@ function openPopupRedaction() {
     vocationInput.value = profileVocation.textContent;
 };
 //клик по кнопке редактирования запускает функцию открытия попапа редактирования профиля
-profileRedactionPopupButton.addEventListener('click', openPopupRedaction);
+profileRedactionPopupButton.addEventListener('click',openPopupRedaction);
 
 //функция закрытия окна редактирования после нажатия на крестик в форме редактирования профиля
 function closePopupRedaction() {
@@ -82,15 +95,22 @@ formRedactionElement.addEventListener('submit', handleSubmitProfileForm);
 //Добавление КАРТОЧЕК
 const cardAddPopupButton = document.querySelector('.profile__button-add');
 const popupAdd = document.querySelector('.popup_profile-add');
-const popupAddCloseButton = document.querySelector('.popup__close-add');
-const formAddElement = document.querySelector('.popup__form-add');
+//const popupAddCloseButton = document.querySelector('.popup__close-add');
+
+const formAddElement = popupAdd.querySelector('.popup__form-add');
+
+//валидация формы добавления карточек
+const addCardValidator = new FormValidator(config, formAddElement);
+addCardValidator.enableValidation()
+
 const cardsContainer = document.querySelector('.cards__container');
 const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
 
 //открытие карточек на переднем плане
 const popupReview = document.querySelector('.popup_card-review');
-const popupReviewCloseButton = document.querySelector('.popup__close-card');
+//const popupReviewCloseButton = document.querySelector('.popup__close-card');
+
 const popupFigure = document.querySelector('.popup__figure');
 const popupCard = document.querySelector('.popup__card');
 const popupFigcaption = popupFigure.querySelector('.popup__figcaption');
@@ -136,11 +156,6 @@ function openPopupCardReview(data){
     popupFigcaption.textContent = data.name;
 }
 
-//функция закрытия окна просмотра картинки после нажатия на крестик
-function closePopupCardReview() {
-    closePopup(popupReview);
-};
-
 //функция открытия окна добавления карточек после клика на плюс
 function openPopupCardAdd() {
     openPopup(popupAdd);
@@ -158,9 +173,9 @@ function closePopupCardAdd() {
 function addCard(e) {
     e.preventDefault();
     renderCard({name: titleInput.value, link: linkInput.value});
+    formAddElement.reset();
     // закрываем попап после нажатия кнопке "Добавить"
     closePopupCardAdd(); 
-    formAddElement.reset();
 };
 
 //прикрепляем обработчик к форме добавления новой карточки
