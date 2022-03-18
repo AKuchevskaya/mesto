@@ -10,19 +10,27 @@ export class Card {
         const newCard = document
         .querySelector(this._templateSelector)
         .content
+        .querySelector('.cards__item')
         .cloneNode(true);
 
         return newCard
     }
+
+    _toggleButtonLike(event) {
+        event.target.classList.toggle('cards__button-like_active');
+    }
+
+    _deleteCard() {
+        this._newCard.remove();
+        this._newCard = null;
+    }
+
     _setEventListeners(){
+
         //добавляем слушатели на каждой карточке, которые проверяют срабатывание  
         //какого-то события (удаление, лайка, открытия карточки)
-        this._newCard.querySelector('.cards__button-delete').addEventListener('click', (event) => {
-            event.target.closest('.cards__item').remove();
-        });
-        this._newCard.querySelector('.cards__button-like').addEventListener('click', (event) => {
-            event.target.classList.toggle('cards__button-like_active');
-        });
+        this._newCard.querySelector('.cards__button-like').addEventListener('click', this._toggleButtonLike);
+        this._newCard.querySelector('.cards__button-delete').addEventListener('click', () => {this._deleteCard()});
         this._newImage.addEventListener('click', () => {
             this._openPopupCardReview(this._name, this._link)
         });

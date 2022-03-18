@@ -2,6 +2,8 @@ export class FormValidator {
     constructor(config, form) {
         this._form = form
         this._config = config
+        this._inputs = Array.from(this._form.querySelectorAll(this._config.inputSelector));
+        this._button = this._form.querySelector(this._config.ButtonSelector);
     }
 
     //функция убирает ошибку в случае валидности формы
@@ -50,9 +52,6 @@ export class FormValidator {
     //функция собирает все инпуты в массив, включает их валидацию, и валидацию кнопки
     _setEventListenerInputs() {
     
-        this._inputs = Array.from(this._form.querySelectorAll(this._config.inputSelector));
-        this._button = this._form.querySelector(this._config.ButtonSelector);
-      
         this._checkButtonValidity();
         this._form.addEventListener('reset', () => {
             this._disableButton();
