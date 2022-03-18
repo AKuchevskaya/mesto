@@ -1,3 +1,5 @@
+import { Card } from './Card.js'
+import { initalCards } from './cards.js'
 import { FormValidator } from './FormValidator.js'
 
 //Редактирование ПРОФИЛЯ
@@ -116,44 +118,33 @@ const popupCard = document.querySelector('.popup__card');
 const popupFigcaption = popupFigure.querySelector('.popup__figcaption');
 
 //кладем в переменную содержание (.content) тега template
-const template = document.querySelector('.template__item').content;
+//const template = document.querySelector('.template__item').content;
 
+function createNewCard() {
+    const newData = {
+        name: titleInput.value, 
+        link: linkInput.value
+    }
+    addCard(newData, cardsContainer, '.template__item')
+}
 //функция вставляет карточку в начало массива initalCards
-function renderCard(card) {
-    cardsContainer.prepend(createItem(card));
+function renderCard() {
+    initalCards.forEach((card) => {
+        addCard(card, cardsContainer, '.template__item')
+    });
 };
 
-initalCards.forEach(renderCard);
-
-//функция клонирует внутренний код тега template с содержимым 
-//и создает новые карточки подставляя значения из массива initalCards
-function createItem(card) {
-    const newCard = template.cloneNode(true);
-    const newImage = newCard.querySelector('.cards__image');
-    //
-    newCard.querySelector('.cards__title').textContent = card.name;
-    newImage.src = card.link;
-    newImage.alt = card.name;
-    //добавляем слушатели на каждой карточке, которые проверяют срабатывание  
-    //какого-то события (удаление, лайка, открытия карточки)
-    newCard.querySelector('.cards__button-delete').addEventListener('click', function(event) {
-        event.target.closest('.cards__item').remove();
-    });
-    newCard.querySelector('.cards__button-like').addEventListener('click', function(event) {
-        event.target.classList.toggle('cards__button-like_active');
-    });
-    newImage.addEventListener('click', function () {
-        openPopupCardReview(card)
-    });
-    return newCard;
-};
+function addCard(card, cardsContainer, templateSelector) {
+    const newCard = new Card(card, templateSelector, openPopupCardReview).createItem()
+    cardsContainer.prepend(newCard);
+}
 
 // функция открытия окна просмотра картинки после нажатия на конкретную картинку
-function openPopupCardReview(data){
+function openPopupCardReview(name, link) {
+    popupCard.src = link;
+    popupCard.alt = name;
+    popupFigcaption.textContent = name;
     openPopup(popupReview);
-    popupCard.src = data.link;
-    popupCard.alt = data.name;
-    popupFigcaption.textContent = data.name;
 }
 
 //функция открытия окна добавления карточек после клика на плюс
@@ -170,13 +161,15 @@ function closePopupCardAdd() {
 };
 
 //функция добавления карточки через попап добавления "+"
-function addCard(e) {
+function handleSubmitAddForm(e) {
     e.preventDefault();
-    renderCard({name: titleInput.value, link: linkInput.value});
+    createNewCard();
     formAddElement.reset();
     // закрываем попап после нажатия кнопке "Добавить"
     closePopupCardAdd(); 
 };
 
+
 //прикрепляем обработчик к форме добавления новой карточки
-formAddElement.addEventListener('submit', addCard);
+formAddElement.addEventListener('submit', handleSubmitAddForm);
+renderCard();
