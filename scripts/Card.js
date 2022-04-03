@@ -1,9 +1,9 @@
 export class Card {
-    constructor(card, templateSelector, openPopupCardReview) {
+    constructor(card, templateSelector, handleCardClick) {
         this._name = card.name
         this._link = card.link
         this._templateSelector = templateSelector
-        this._openPopupCardReview = openPopupCardReview
+        this._handleCardClick = handleCardClick
 
     }
     _getTemplate() {
@@ -32,7 +32,7 @@ export class Card {
         this._newCard.querySelector('.cards__button-like').addEventListener('click', this._toggleButtonLike);
         this._newCard.querySelector('.cards__button-delete').addEventListener('click', () => {this._deleteCard()});
         this._newImage.addEventListener('click', () => {
-            this._openPopupCardReview(this._name, this._link)
+            this._handleCardClick(this._name, this._link)
         });
     }
     //функция клонирует внутренний код тега template с содержимым 
