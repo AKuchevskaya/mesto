@@ -1,7 +1,12 @@
+import karachaevsk from '../images/karachaevsk.jpg';
+import romancevskie_gory from '../images/romancevskie_gory.jpg';
+import nepal from '../images/nepal.jpg';
+import himalayas from '../images/himalayas.jpg';
+
 export const initialCards = [
     {
         name: 'Карачаевск',
-        link: './images/karachaevsk.jpg'
+        link: karachaevsk
     },
     {
         name: 'Холмогорский район',
@@ -13,14 +18,14 @@ export const initialCards = [
     },
     {
         name: 'Романцевские горы',
-        link: './images/romancevskie_gory.jpg'
+        link: romancevskie_gory
     },
     {
         name: 'Непал',
-        link: './images/nepal.jpg'
+        link: nepal
     },
     {
         name: 'Гималаи',
-        link: './images/himalayas.jpg'
+        link: himalayas
     },
 ];
