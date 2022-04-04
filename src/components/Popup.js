@@ -12,7 +12,7 @@ export class Popup {
         this._popup.classList.remove('popup_opened');
         document.removeEventListener('keydown', this._handleEscClose);
     }
-   ß
+   
     setEventListeners() {
         const closeButton = this._popup.querySelector('.popup__close')
         this._popup.addEventListener('mousedown', (evt) => {

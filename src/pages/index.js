@@ -51,8 +51,6 @@ function closePopupRedaction() {
 // изменяются данные полей формы редактирования и они сохраняются на странице профиля;
 //вызывается функция закрытия после нажатия на кнопку "Сохранить"
 function  handleSubmitProfileForm(data) {
-    console.log('data', data)
-
     const { name, vocation } = data
     userInfo.setUserInfo(name, vocation)
 
@@ -107,8 +105,6 @@ function handleSubmitAddForm(data) {
         link: data.link
     })
     section.addItem(card)
-
-    formAddElement.reset();
     // закрываем попап после нажатия кнопке "Добавить"
     closePopupCardAdd(); 
 };
