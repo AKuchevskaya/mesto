@@ -98,8 +98,6 @@ function closePopupCardAdd() {
 
 //функция добавления карточки через попап добавления "+"
 function handleSubmitAddForm(data) {
-   console.log('data', data)
-
     const card = createCard({
         name: data.text, 
         link: data.link
