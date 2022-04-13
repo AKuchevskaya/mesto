@@ -3,11 +3,12 @@
     background-repeat: no-repeat;
     background-position: center;
     background-color: #FFFFFF;
-    width: 25px;
+    width: 22px;
     height: 19px;
     border: none;
     cursor: pointer;
     transition: .3s;
+    
 }
 .cards__button-like:hover {
     opacity: 0.5;
