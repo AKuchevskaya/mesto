@@ -3,12 +3,12 @@ class Api {
         this._headers = headers
         this._baseUrl = baseUrl
     }
+
     getProfile() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers
         })
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-        .catch((err) => {console.log(err)})
     }
      
 
@@ -22,7 +22,6 @@ class Api {
             })
         })
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-        .catch((err) => {console.log(err)})
     }
   
     getInitialCards() {
@@ -30,7 +29,6 @@ class Api {
             headers: this._headers
         })
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-        .catch((err) => {console.log(err)})
     }
 
     addCard(name, link) {
@@ -43,7 +41,6 @@ class Api {
             })
         })
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-        .catch((err) => {console.log(err)})
     }
     deleteCard(id) {
         return fetch(`${this._baseUrl}/cards/${id}`, {
@@ -51,7 +48,6 @@ class Api {
             headers: this._headers
         })
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-        .catch((err) => {console.log(err)})
     }
   
     deleteLike(id) {
@@ -60,7 +56,6 @@ class Api {
             headers: this._headers
         })
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-        .catch((err) => {console.log(err)})
     }
 
     addLike(id) {
@@ -69,7 +64,6 @@ class Api {
             headers: this._headers
         })
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-        .catch((err) => {console.log(err)})
     }
 
     editAvatar(avatar) {
@@ -81,7 +75,6 @@ class Api {
             })
         })
         .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-        .catch((err) => {console.log(err)})
     }
 
   }

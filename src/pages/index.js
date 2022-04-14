@@ -1,5 +1,6 @@
 import { Card } from '../components/Card.js'
 import { initialCards } from '../utils/cards.js'
+import { config } from '../utils/utils.js'
 import { FormValidator } from '../components/FormValidator.js'
 import { Section } from '../components/Section.js'
 import { PopupWithImage } from '../components/PopupWithImage.js'
@@ -11,15 +12,14 @@ import { api } from '../components/Api.js'
 
 
 let userId
+Promise.all([ //в Promise.all передаем массив промисов которые нужно выполнить
+    api.getInitialCards(),
+    api.getProfile()
+])
+.then(([cardList, data]) => {
+    userInfo.setUserInfo(data.name, data.about, data.avatar)
+    userId = data._id
 
-api.getProfile()
-    .then(res => {
-        userInfo.setUserInfo(res.name, res.about, res.avatar)
-        userId = res._id
-    })
-
-api.getInitialCards()
-.then(cardList => {
     cardList.forEach(data => {
         const card = createCard({
             name: data.name, 
@@ -29,9 +29,11 @@ api.getInitialCards()
             userId: userId,
             ownerId: data.owner._id
         })
-        section.addItem(card)
     })
+    section.renderItems(cardList)    
 })
+.catch((err) => {console.log(`Ошибка.....: ${err}`)})
+
 //Редактирование ПРОФИЛЯ
 const profileRedactionPopupButton = document.querySelector('.profile__button-redaction');
 const popupRedaction = document.querySelector('.popup_profile-redaction');
@@ -43,14 +45,6 @@ const formAddAvatar = document.querySelector('.popup__form-avatar')
 const nameInput = document.querySelector('.popup__input_type_name');
 const vocationInput = document.querySelector('.popup__input_type_vocation');
 const avatarInput = document.querySelector('.popup__input_type_avatar');
-
-const config = {
-    formSelector: '.popup__form',
-    inactiveButtonClass: 'popup__save_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    inputSelector: '.popup__input',
-    ButtonSelector: '.popup__save'
-}
 
 //валидация формы редактирования
 const redactionProfileValidator = new FormValidator(config, formRedactionElement);
@@ -73,7 +67,7 @@ profileRedactionPopupButton.addEventListener('click',openPopupRedaction);
 // изменяются данные полей формы редактирования и они сохраняются на странице профиля;
 //вызывается функция закрытия после нажатия на кнопку "Сохранить"
 function  handleSubmitProfileForm(data) {
-    const { name, vocation, link } = data
+    const { name, vocation } = data
     redactionProfilePopup.renderLoadingSave(true)
     api.editProfile(name, vocation)
     .then((res) => {
@@ -81,7 +75,7 @@ function  handleSubmitProfileForm(data) {
         // закрываем попап после нажатия кнопки "создать"
         redactionProfilePopup.close()
     })
-    .catch((err) => {console.log(err)})
+    .catch((err) => {console.log(`Ошибка.....: ${err}`)})
     .finally(() => {
         redactionProfilePopup.renderLoadingSave(false)
     })
@@ -95,14 +89,13 @@ function openPopupAvatar() {
 avatarRedactionButton.addEventListener('click', openPopupAvatar)
 
 function handleSubmitAddAvatar(data) {
-    const { name, vocation, link } = data
     avatarPopup.renderLoadingSave(true)
     api.editAvatar(data.avatar)
     .then((res) => {
         userInfo.setUserInfo(res.name, res.about, res.avatar)
         avatarPopup.close()
     })
-    .catch((err) => {console.log(err)})
+    .catch((err) => {console.log(`Ошибка.....: ${err}`)})
     .finally(() => {
         avatarPopup.renderLoadingSave(false)
     })
@@ -119,10 +112,6 @@ const formAddElement = popupAdd.querySelector('.popup__form-add');
 const addCardValidator = new FormValidator(config, formAddElement);
 addCardValidator.enableValidation()
 
-//const cardsContainer = document.querySelector('.cards__container');
-const titleInput = document.querySelector('.popup__input_type_title');
-const linkInput = document.querySelector('.popup__input_type_link');
-
 function createCard(data) {
     const newCard = new Card(
         data, 
@@ -138,6 +127,7 @@ function createCard(data) {
                     newCard.deleteCard()
                     questionPopup.close()
                 })
+                .catch((err) => {console.log(`Ошибка.....: ${err}`)})
             })
         },
         (id) => {
@@ -145,20 +135,29 @@ function createCard(data) {
                 api.deleteLike(id)
                 .then(res => {
                     newCard.setLikes(res.likes)
-                })  
+                })
+                .catch((err) => {console.log(`Ошибка.....: ${err}`)})  
             } else {
                 api.addLike(id)
                 .then(res => {
                     newCard.setLikes(res.likes)
                 })
+                .catch((err) => {console.log(`Ошибка.....: ${err}`)})
             }
         })
     return newCard.createItem()
 }
 
 function renderCard(data) {
-    const card = createCard(data)
-    section.addItem(card);
+    const card = createCard({
+        name: data.name, 
+        link: data.link,
+        likes: data.likes,
+        id: data._id,
+        userId: userId,
+        ownerId: data.owner._id
+    })
+section.addItem(card);
 }
 
 //клик по кнопке добавления карточек запускает функцию открытия окна добавления карточек
@@ -171,15 +170,7 @@ function handleSubmitAddForm(data) {
     addCardPopup.renderLoadingCreate(true)
     api.addCard(data.text, data.link)
     .then(res => {
-        const card = createCard({
-            name: res.name, 
-            link: res.link,
-            likes: res.likes,
-            id: res._id,
-            userId: userId,
-            ownerId: res.owner._id
-        })
-        section.addItem(card)
+        renderCard(res)
         // закрываем попап после нажатия кнопке "Добавить"
         addCardPopup.close()
     })
@@ -189,7 +180,7 @@ function handleSubmitAddForm(data) {
     })
 };
 
-const section = new Section({ items: [], renderer: renderCard }, '.cards__container')
+const section = new Section({ renderer: renderCard }, '.cards__container')
 const imagePopup = new PopupWithImage('.popup_card-review')
 const addCardPopup = new PopupWithForm('.popup_profile-add', handleSubmitAddForm)
 const redactionProfilePopup = new PopupWithForm('.popup_profile-redaction', handleSubmitProfileForm)
@@ -201,8 +192,6 @@ addCardPopup.setEventListeners()
 redactionProfilePopup.setEventListeners()
 questionPopup.setEventListeners()
 avatarPopup.setEventListeners()
-
-section.renderItems()
 
 const userInfo = new UserInfo({ 
     profileNameSelector: '.profile__name', 

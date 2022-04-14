@@ -64,12 +64,13 @@ export class FormValidator {
             });
         });
     };
-
+    resetErrors() {
+        this._inputs.forEach((input) =>{
+            input._setInputValid(input, errorMessage)
+        })
+    }
     //функция собирает все формы в массив и определяет в какой именно форме заполняются поля
     enableValidation() {
-        this._form.addEventListener('submit', (evt) => {
-            evt.preventDefault()
-        });
         this._setEventListenerInputs();
     };
 }
