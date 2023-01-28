@@ -15,20 +15,18 @@
 
 Макет дизайна страницы был взят с сайта [https://figma.com].
 
-## Разработка адаптивной верстки велась с использованием:
+## Описание  
 
+Разработка адаптивной верстки велась с использованием:
 Flex-верстки;
 Grid Layout;
-Относительных величин;
-JavaScript;
-Wabpack.
+Относительных величин. 
 Файловая структура проекта организована по БЭМ, для определения
 оптимальных точек перелома использовался сайт
 [https://screensizemap.com],
 картинки, использумые в проекте оптимизировались на сайте
 [https://tinypng.com],
-а сам проект доступен в публичном репозитории на GitHub Pages
-по ссылке:
+а сам проект доступен на GitHub Pages по ссылке:
 
 [https://akuchevskaya.github.io/mesto/].
 
@@ -38,6 +36,15 @@ Wabpack.
 GET, PATCH, POST, PUT-запросов. Добавлен счетчик лайков, а также разделение карточек на свои и других пользователей.
 Свои карточки можно удалять при помощи DELETE-запросов, чужие удалять нельзя.
 
-###Что планируется улучшить:
-добавить React;
+## Технологии:
+
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+
+### Что планируется улучшить:
+пересобрать на React;
 дальнейший рефакторинг.
